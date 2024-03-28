@@ -32,3 +32,8 @@ java {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
+
+
+apply plugin: 'application'
+
+mainClassName = 'org.picklejar.Picklejar'

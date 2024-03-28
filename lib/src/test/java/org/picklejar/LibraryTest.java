@@ -4,12 +4,28 @@
 package org.picklejar;
 
 import org.junit.Test;
+import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.*;
 
 public class LibraryTest {
   @Test
-  public void someLibraryMethodReturnsTrue() {
-    Library classUnderTest = new Library();
-    assertTrue("someLibraryMethod should return 'true'", classUnderTest.someLibraryMethod());
+  public void setup() {
+    Picklejar picklejar = new Picklejar("localhost", 8080);
+    assertEquals("localhost", Picklejar.host);
+    assertEquals(Integer.valueOf(8080), Picklejar.port);
+  }
+
+  @Test
+  public void testStart() {
+    Picklejar picklejar = new Picklejar("localhost", 8080);
+    Thread thread = new Thread(() -> {
+      try {
+        picklejar.Start();
+        TimeUnit.SECONDS.sleep(1000);
+        picklejar.Stop();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    });
   }
 }
